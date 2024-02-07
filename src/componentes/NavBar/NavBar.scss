@@ -1,0 +1,48 @@
+header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  overflow: hidden;
+  border-bottom: 4px bisque solid;
+  margin-bottom: 10px;
+  position: sticky;
+  top: 0;
+  li {
+    display: inline-block;
+    cursor: pointer;
+    padding: 20px;
+  }
+  h1 {
+    font-family: "Great Vibes", cursive;
+    font-size: 100px;
+  }
+
+  h2 {
+    margin-top: -10px;
+  }
+
+  .banner {
+    width: 100%;
+    object-fit: cover;
+  }
+
+  .navBar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    background: rgba(255, 228, 196, 0.5);
+    height: 100px;
+    margin-top: -200px;
+    padding: 20px;
+    .titulos {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      margin-top: -110px;
+    }
+  }
+}

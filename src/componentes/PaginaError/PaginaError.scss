@@ -1,0 +1,25 @@
+.errorStyle {
+  height: 460px;
+  width: 100%;
+  align-items: center;
+  display: flex;
+  text-align: center;
+  flex-direction: column;
+  justify-content: center;
+
+  p,
+  strong,
+  i,
+  h1 {
+    padding: 10px;
+  }
+
+  i,
+  h1 {
+    font-size: 100px;
+  }
+
+  h1 {
+    font-family: "Great Vibes", cursive;
+  }
+}

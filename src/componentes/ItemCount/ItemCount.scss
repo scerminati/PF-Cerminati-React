@@ -1,0 +1,12 @@
+.carritoBotones {
+  align-items: center;
+  width: 100%;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+
+  .botones {
+    display: flex;
+    margin: 10px;
+  }
+}

@@ -6,7 +6,7 @@ const CartItem = ({ item, cantidad }) => {
   const { eliminarProducto } = useContext(CarritoContext);
 
   const handleEliminarProducto = () => {
-    eliminarProducto(item.id); // Llamamos a la función eliminarProducto con el ID del producto
+    eliminarProducto(item.id); 
   };
 
   return (
@@ -15,7 +15,7 @@ const CartItem = ({ item, cantidad }) => {
         <div className="flex1">
           <h3>{item.nombre}</h3>
           <p>Cantidad: {cantidad}</p>
-          <p>Precio: ${item.precio}</p>
+          <p>Precio: ${item.precio.toFixed(2)}</p>
         </div>
         <div className="flex2">
           <img src={item.img} alt={item.nombre} />

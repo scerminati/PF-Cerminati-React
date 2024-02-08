@@ -21,19 +21,19 @@ const Item = ({
       </div>
       <div className="cajaDescripcion">
         <p>
-          <i className="bx bx-compass"></i>Complejidad: {complejidad}
+          <i className="bx bx-compass"></i>Complejidad: {complejidad.toFixed(2)}
         </p>
         <p>
           <i className="bx bx-time-five"></i>Tiempo: {tiempo} min
         </p>
         <p>
-          <i className="bx bx-star"></i>Raiting: {raiting}
+          <i className="bx bx-star"></i>Raiting: {raiting.toFixed(2)}
         </p>
         <p>
           <i className="bx bx-game"></i>De {minjug} a {maxjug} jugadores
         </p>
       </div>
-      <p>Precio: ${precio}</p>
+      <p>Precio: ${precio.toFixed(2)}</p>
 
       <Link to={`/item/${id}`} className="linkBoton">
         <button>Ver Detalles</button>

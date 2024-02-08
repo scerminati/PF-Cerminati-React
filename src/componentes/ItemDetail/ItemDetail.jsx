@@ -42,22 +42,19 @@ const ItemDetail = ({
             <strong>Año de Publicación:</strong> {ano}
           </p>
           <p>
-            <strong>Complejidad:</strong> {complejidad}
+            <strong>Complejidad:</strong> {complejidad.toFixed(2)}
           </p>
           <p>
             <strong>Tiempo de juego:</strong> {tiempo} min
           </p>
           <p>
-            <strong>Raiting:</strong> {raiting}
+            <strong>Raiting:</strong> {raiting.toFixed(2)}
           </p>
           <p>
             <strong>Número de jugadores:</strong> De {minjug} a {maxjug}.
           </p>
           <p>
-            <strong>Precio:</strong> ${precio}
-          </p>
-          <p>
-            <strong>ID:</strong> {id}
+            <strong>Precio:</strong> ${precio.toFixed(2)}
           </p>
           <p>
             <strong>Stock disponible:</strong> {stock}

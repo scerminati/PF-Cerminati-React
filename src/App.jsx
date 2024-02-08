@@ -14,6 +14,7 @@ const App = () => {
       <div className="aplicacion">
         <BrowserRouter>
           <ProveedorCarrito>
+
             <NavBar />
             <Routes>
               <Route path="/" element={<ItemListContainer />} />

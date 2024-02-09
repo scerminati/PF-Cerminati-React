@@ -20,4 +20,12 @@
     padding: 3px;
     text-align: justify;
   }
+
+  .alerta {
+    color: red;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
 }

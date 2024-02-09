@@ -60,12 +60,22 @@ const ItemDetail = ({
             <strong>Stock disponible:</strong> {stock}
           </p>
 
-          {cantidad > 0 ? (
-            <Link to="/cart" className="linkBoton">
-              <button>Terminar Compra</button>
-            </Link>
+          {stock > 0 ? (
+            cantidad > 0 ? (
+              <Link to="/cart" className="linkBoton">
+                <button>Terminar Compra</button>
+              </Link>
+            ) : (
+              <ItemCount
+                inicial={1}
+                stock={stock}
+                addToCart={cantidadHandler}
+              />
+            )
           ) : (
-            <ItemCount inicial={1} stock={stock} addToCart={cantidadHandler} />
+            <div className="alerta">
+              <p>No tenemos stock disponible para comprar.</p>
+            </div>
           )}
         </div>
         <div>

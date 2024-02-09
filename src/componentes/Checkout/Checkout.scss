@@ -1,0 +1,19 @@
+.formulario {
+  label {
+    margin: 7px;
+    width: 200px;
+    display: inline-block;
+  }
+
+  input {
+    width: 200px;
+  }
+
+  .itemDetalleCheckout {
+    margin: 10px;
+  }
+
+  .resumen {
+    display: flex;
+  }
+}

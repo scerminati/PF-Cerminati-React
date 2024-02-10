@@ -21,13 +21,25 @@ const ItemDetail = ({
 }) => {
   const [cantidad, setCantidad] = useState(0);
 
-  const { agregoAlCarrito } = useContext(CarritoContext);
+  const { agregoAlCarrito, carrito } = useContext(CarritoContext);
 
   const cantidadHandler = (cantidad) => {
     setCantidad(cantidad);
     const item = { id, nombre, precio, img };
     agregoAlCarrito(item, cantidad);
   };
+
+  const yaExisteEnCarrito = carrito.find((prod) => prod.item.id === id);
+  let stockAManejar;
+  let indicadorLleno = false;
+  if (yaExisteEnCarrito) {
+    stockAManejar = stock - yaExisteEnCarrito.cantidad;
+    if (stockAManejar == 0) {
+      indicadorLleno = true;
+    }
+  } else {
+    stockAManejar = stock;
+  }
 
   return (
     <>
@@ -60,7 +72,25 @@ const ItemDetail = ({
             <strong>Stock disponible:</strong> {stock}
           </p>
 
-          {stock > 0 ? (
+          {indicadorLleno ? (
+            cantidad == 0 ? (
+              <>
+                <div className="alerta">
+                  <p>
+                    Este producto ya está en tu carrito con el máximo de
+                    unidades.
+                  </p>
+                </div>
+                <Link to="/cart" className="linkBoton">
+                  <button>Terminar Compra</button>
+                </Link>
+              </>
+            ) : (
+              <Link to="/cart" className="linkBoton">
+                <button>Terminar Compra</button>
+              </Link>
+            )
+          ) : stock > 0 ? (
             cantidad > 0 ? (
               <Link to="/cart" className="linkBoton">
                 <button>Terminar Compra</button>
@@ -68,7 +98,7 @@ const ItemDetail = ({
             ) : (
               <ItemCount
                 inicial={1}
-                stock={stock}
+                stock={stockAManejar}
                 addToCart={cantidadHandler}
               />
             )

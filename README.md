@@ -1,6 +1,6 @@
 # SoGames - Tienda de Juegos de Mesa
 
-Este proyecto es una aplicación web desarrollada como parte del Proyecto Final del curso de React JS en CoderHouse. La aplicación permite a los usuarios buscar, visualizar y comprar productos de una tienda online, así mismo se genera un checkout con un número de órden de compra.
+Este proyecto es una aplicación web desarrollada como parte del Proyecto Final del curso de React JS en CoderHouse. La aplicación permite a los usuarios buscar, visualizar y comprar productos de una tienda online, así mismo se genera un checkout con un número de órden de compra, y permite asimismo buscar el detalle de la orden de compra sin dar detalles personales..
 
 ## Tecnologías Utilizadas
 

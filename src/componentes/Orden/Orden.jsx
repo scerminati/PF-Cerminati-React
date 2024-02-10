@@ -70,7 +70,7 @@ const Orden = () => {
           <div class="detallesAdicc">
             <h3>Productos de la Orden {ordenBuscada}</h3>
             <p>
-              <strong>Fecha: </strong>
+              <strong>Fecha de la compra: </strong>
               {formatDate(detalles.fecha.seconds)}
             </p>
 

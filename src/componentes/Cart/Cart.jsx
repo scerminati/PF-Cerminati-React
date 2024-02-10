@@ -12,9 +12,14 @@ const Cart = () => {
       <>
         <h2>Carrito</h2>
         <p>No hay productos en el carrito</p>
-        <Link to="/" className="linkBoton">
-          <button>Volver al inicio</button>
-        </Link>
+        <div className="linkBoton">
+          <Link to="/" className="linkBoton">
+            <button>Volver al inicio</button>
+          </Link>
+          <Link to="/orden" className="linkBoton">
+            <button>Buscar una orden</button>
+          </Link>
+        </div>
       </>
     );
   }
@@ -33,6 +38,9 @@ const Cart = () => {
 
         <Link to="/checkout" className="linkBoton">
           <button>Finalizar Compra</button>
+        </Link>
+        <Link to="/orden" className="linkBoton">
+          <button>Buscar una orden</button>
         </Link>
       </div>
     </>

@@ -129,14 +129,14 @@ const Checkout = () => {
           <p>Tu carrito tiene los siguientes productos:</p>
           <div className="contenedorCartItem">
             <div className="flex1">
-              <p>Título</p>
+              <strong>Título</strong>
             </div>
 
             <div className="flex2">
-              <p>Cantidad</p>
+              <strong>Cantidad</strong>
             </div>
             <div className="flex3">
-              <p>Precio</p>
+              <strong>Precio</strong>
             </div>
           </div>
           <hr />
@@ -150,7 +150,7 @@ const Checkout = () => {
                   <p>{producto.cantidad}</p>
                 </div>
                 <div className="flex3">
-                  <p>${producto.item.precio}</p>
+                  <p>${producto.item.precio.toFixed(2)}</p>
                 </div>
               </div>
               <hr />
@@ -164,7 +164,7 @@ const Checkout = () => {
             </div>
             <div className="flex3">
               <strong>Total de la compra</strong>
-              <p>${total}</p>
+              <p>${total.toFixed(2)}</p>
             </div>
           </div>
           <hr />

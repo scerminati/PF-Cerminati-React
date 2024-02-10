@@ -1,0 +1,39 @@
+.ordenForm {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  input {
+    height: 20px;
+    width: 200px;
+  }
+}
+
+.errorCheck {
+  color: red;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.detalleItemsOrden {
+  display: flex;
+  margin: 10px;
+}
+
+.flex1 {
+  flex-basis: 45%;
+}
+.flex2 {
+  flex-basis: 35%;
+  text-align: center;
+}
+.flex3 {
+  flex-basis: 20%;
+  text-align: center;
+}
+
+.detallesAdicc {
+  p {
+    margin: 5px;
+  }
+}

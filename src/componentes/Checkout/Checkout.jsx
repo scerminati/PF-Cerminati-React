@@ -2,7 +2,8 @@ import React from "react";
 import { useState, useContext } from "react";
 import { CarritoContext } from "../../context/CarritoContext";
 import { db } from "../../services/config";
-import { collection, addDoc, updateDoc, getDoc, doc } from "firebase/firestore";
+import { collection, setDoc, updateDoc, getDoc, doc } from "firebase/firestore";
+import { Link } from "react-router-dom";
 import "./Checkout.scss";
 
 const Checkout = () => {
@@ -17,19 +18,38 @@ const Checkout = () => {
   const [ordenId, setOrdenId] = useState("");
   const [error, setError] = useState("");
 
+  const generarOrderId = () => {
+    const fecha = new Date();
+    const year = fecha.getFullYear();
+    const month = String(fecha.getMonth() + 1).padStart(2, "0");
+    const day = String(fecha.getDate()).padStart(2, "0");
+    const hour = String(fecha.getHours()).padStart(2, "0");
+    const minute = String(fecha.getMinutes()).padStart(2, "0");
+    const second = String(fecha.getSeconds()).padStart(2, "0");
+    const randomNum = String(Math.floor(Math.random() * 10000)).padStart(
+      4,
+      "0"
+    );
+
+    const orderId = parseInt(
+      `${year}${month}${day}${hour}${minute}${second}${randomNum}`
+    );
+    return orderId;
+  };
+
   const manejadorSubmit = (e) => {
     e.preventDefault();
 
     //Verificacion de completacion de campos
 
     if (!nombre || !apellido || !telefono || !email || !emailConfirmacion) {
-      setError("Por favor completar todos los campos");
+      setError("Por favor completar todos los campos.");
       return;
     }
 
     //Verificacion de correo
     if (email !== emailConfirmacion) {
-      setError("Los emails no coinciden");
+      setError("Los emails no coinciden, revisar los datos completados.");
       return;
     }
 
@@ -62,9 +82,15 @@ const Checkout = () => {
       })
     )
       .then(() => {
-        addDoc(collection(db, "ordenes"), orden)
-          .then((docRef) => {
-            setOrdenId(docRef.id);
+        const ordenesCollectionRef = collection(db, "ordenes");
+        const orderIdGen = generarOrderId().toString(); // Generar ID único según tu lógica
+
+        // Crear una referencia al documento con el ID generado
+        const ordenDocRef = doc(ordenesCollectionRef, orderIdGen);
+
+        setDoc(ordenDocRef, orden)
+          .then(() => {
+            setOrdenId(orderIdGen);
             vaciarCarrito();
             setNombre("");
             setApellido("");
@@ -90,7 +116,12 @@ const Checkout = () => {
     <>
       <h2>Checkout</h2>
       {ordenId ? (
-        <strong>Gracias por su compra, su número de Orden es {ordenId}</strong>
+        <>
+          <p>Gracias por su compra, su número de Orden es {ordenId}.</p>{" "}
+          <Link to="/" className="linkBoton">
+            <button>Volver a página inicial</button>
+          </Link>
+        </>
       ) : carrito.length === 0 ? (
         <p>El carrito está vacío</p>
       ) : (
@@ -110,11 +141,8 @@ const Checkout = () => {
           </div>
           <hr />
           {carrito.map((producto) => (
-            <>
-              <div
-                className="itemDetalleCheckout contenedorCartItem"
-                key={producto.item.id}
-              >
+            <React.Fragment key={producto.item.id}>
+              <div className="itemDetalleCheckout contenedorCartItem">
                 <div className="flex1">
                   <p>{producto.item.nombre}</p>
                 </div>
@@ -126,16 +154,17 @@ const Checkout = () => {
                 </div>
               </div>
               <hr />
-            </>
+            </React.Fragment>
           ))}
           <div className="itemDetalleCheckout  contenedorCartItem">
             <div className="flex1"></div>
             <div className="flex2">
-              {" "}
-              <p>Total de productos: {cantidadTotal}</p>
+              <strong>Total de productos</strong>
+              <p>{cantidadTotal}</p>
             </div>
             <div className="flex3">
-              <p>Total de la compra: ${total}</p>
+              <strong>Total de la compra</strong>
+              <p>${total}</p>
             </div>
           </div>
           <hr />
@@ -146,7 +175,10 @@ const Checkout = () => {
               <input
                 type="text"
                 id="nombre"
-                onChange={(e) => setNombre(e.target.value)}
+                onChange={(e) => {
+                  setNombre(e.target.value);
+                  setError("");
+                }}
               />
             </div>
 
@@ -155,7 +187,10 @@ const Checkout = () => {
               <input
                 type="text"
                 id="apellido"
-                onChange={(e) => setApellido(e.target.value)}
+                onChange={(e) => {
+                  setApellido(e.target.value);
+                  setError("");
+                }}
               />
             </div>
 
@@ -164,7 +199,10 @@ const Checkout = () => {
               <input
                 type="text"
                 id="telefono"
-                onChange={(e) => setTelefono(e.target.value)}
+                onChange={(e) => {
+                  setTelefono(e.target.value);
+                  setError("");
+                }}
               />
             </div>
 
@@ -173,7 +211,10 @@ const Checkout = () => {
               <input
                 type="email"
                 id="email"
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                  setError("");
+                }}
               />
             </div>
 
@@ -182,15 +223,22 @@ const Checkout = () => {
               <input
                 type="email"
                 id="emailConfirmacion"
-                onChange={(e) => setEmailConfirmacion(e.target.value)}
+                onChange={(e) => {
+                  setEmailConfirmacion(e.target.value);
+                  setError("");
+                }}
               />
             </div>
-            {error && <p>{error}</p>}
 
             <div className="linkBoton">
               <button type="reset">Borrar</button>
               <button>Finalizar Orden</button>
             </div>
+            {error && (
+              <div className="errorCheck">
+                <p>{error}</p>
+              </div>
+            )}
           </form>
         </>
       )}

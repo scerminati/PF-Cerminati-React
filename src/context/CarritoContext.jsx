@@ -7,9 +7,18 @@ export const CarritoContext = createContext({
 });
 
 export const ProveedorCarrito = ({ children }) => {
-  const [carrito, setCarrito] = useState([]);
-  const [total, setTotal] = useState(0);
-  const [cantidadTotal, setCantidadTotal] = useState(0);
+  const [carrito, setCarrito] = useState(() => {
+    const carritoLS = localStorage.getItem("carrito");
+    return carritoLS ? JSON.parse(carritoLS) : [];
+  });
+  const [total, setTotal] = useState(() => {
+    const totalLS = localStorage.getItem("total");
+    return totalLS ? JSON.parse(totalLS) : 0;
+  });
+  const [cantidadTotal, setCantidadTotal] = useState(() => {
+    const cantidadTotalLS = localStorage.getItem("cantidadTotal");
+    return cantidadTotalLS ? JSON.parse(cantidadTotalLS) : 0;
+  });
 
   const agregoAlCarrito = (item, cantidad) => {
     const productoExistente = carrito.find(
@@ -17,9 +26,19 @@ export const ProveedorCarrito = ({ children }) => {
     );
 
     if (!productoExistente) {
-      setCarrito((anterior) => [...anterior, { item, cantidad }]);
+      const nuevoCarrito = [...carrito, { item, cantidad }];
+      setCarrito(nuevoCarrito);
       setCantidadTotal((anterior) => anterior + cantidad);
       setTotal((anterior) => anterior + item.precio * cantidad);
+      localStorage.setItem("carrito", JSON.stringify(nuevoCarrito));
+      localStorage.setItem(
+        "cantidadTotal",
+        JSON.stringify(cantidadTotal + cantidad)
+      );
+      localStorage.setItem(
+        "total",
+        JSON.stringify(total + item.precio * cantidad)
+      );
     } else {
       const carritoActualizado = carrito.map((prod) => {
         if (prod.item.id === item.id) {
@@ -31,6 +50,15 @@ export const ProveedorCarrito = ({ children }) => {
       setCarrito(carritoActualizado);
       setCantidadTotal((anterior) => anterior + cantidad);
       setTotal((anterior) => anterior + item.precio * cantidad);
+      localStorage.setItem("carrito", JSON.stringify(carritoActualizado));
+      localStorage.setItem(
+        "cantidadTotal",
+        JSON.stringify(cantidadTotal + cantidad)
+      );
+      localStorage.setItem(
+        "total",
+        JSON.stringify(total + item.precio * cantidad)
+      );
     }
   };
 
@@ -45,12 +73,28 @@ export const ProveedorCarrito = ({ children }) => {
       (anterior) =>
         anterior - productoEliminado.item.precio * productoEliminado.cantidad
     );
+
+    localStorage.setItem("carrito", JSON.stringify(carritoActualizado));
+    localStorage.setItem(
+      "cantidadTotal",
+      JSON.stringify(cantidadTotal - productoEliminado.cantidad)
+    );
+    localStorage.setItem(
+      "total",
+      JSON.stringify(
+        total - productoEliminado.item.precio * productoEliminado.cantidad
+      )
+    );
   };
 
   const vaciarCarrito = () => {
     setCarrito([]);
     setCantidadTotal(0);
     setTotal(0);
+
+    localStorage.removeItem("carrito");
+    localStorage.removeItem("total");
+    localStorage.removeItem("cantidadTotal");
   };
 
   return (
